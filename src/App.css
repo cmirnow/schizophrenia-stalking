@@ -1,12 +1,11 @@
 .App-logo {
-  animation: spin infinite 20s linear;
   height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  padding: 20px;
-  color: white;
+  background: #202428;
+  padding: 10px;
+  color: #202428;
   text-align: center;
 }
 
@@ -14,11 +13,7 @@
   font-size: large;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.vantajs {
+  width: auto;
+  height: 180px;
 }

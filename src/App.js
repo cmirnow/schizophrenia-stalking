@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { RingsAnimation } from "./components/RingsAnimation";
 import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
-import logo from './svg/logo.svg';
+import Footer from './footer';
 import './App.css';
 
 class App extends Component {
@@ -33,22 +34,6 @@ class App extends Component {
   }
 
   shuffleArray(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
     return array;
   }
 
@@ -98,7 +83,7 @@ class App extends Component {
     if (result.length === 1) {
       this.setState({ result: result[0] });
     } else {
-      this.setState({ result: 'Undetermined' });
+      this.setState({ result: 'Тест не может определить приоритет' });
     }
   }
 
@@ -123,10 +108,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>React Quiz</h2>
+        <RingsAnimation />
         </div>
         {this.state.result ? this.renderResult() : this.renderQuiz()}
+        <Footer/>
       </div>
     );
   }
