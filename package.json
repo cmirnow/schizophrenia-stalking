@@ -2,6 +2,7 @@
   "name": "react-quiz",
   "version": "2.0.0",
   "private": false,
+  "homepage": "https://cmirnow.github.io/schizophrenia-stalking",
   "dependencies": {
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -12,6 +13,8 @@
     "vanta": "^0.5.22"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -25,5 +28,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
 }
