@@ -1,9 +1,22 @@
-import React from "react";
+const Footer = () => {
+  const startYear = 2022;
+  const currentYear = new Date().getFullYear();
+  return (
+    <div className="footer">
+      <p className="link-action">
+        <a
+          href="https://blog.masterpro.ws/schizophrenia-stalking-online-test"
+          title="Психоаналитические этюды"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Психоаналитические этюды.{" "}
+        </a>
+        Masterpro.ws ©{" "}
+        {startYear === currentYear ? startYear : startYear + "-" + currentYear}
+      </p>
+    </div>
+  );
+};
 
-const Footer = () => (
-  <div className="footer">
-    <p className="link-action"><a href="https://blog.masterpro.ws/schizophrenia-stalking-online-test" title="Психоаналитические этюды" target="_blank" rel="noreferrer">Психоаналитические этюды. </a>Masterpro.ws © 2009 - 2022</p>
-  </div>
-);
-
-export default Footer; 
+export default Footer;
