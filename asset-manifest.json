@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/schizophrenia-stalking/static/css/main.d8808cb6.css",
-    "main.js": "/schizophrenia-stalking/static/js/main.65542929.js",
+    "main.js": "/schizophrenia-stalking/static/js/main.cf939fd0.js",
     "static/media/logo.png": "/schizophrenia-stalking/static/media/logo.316bbcb65254e0e11b31.png",
     "index.html": "/schizophrenia-stalking/index.html",
     "static/media/icon-check.svg": "/schizophrenia-stalking/static/media/icon-check.12ef56dba3e58d61a792.svg",
     "main.d8808cb6.css.map": "/schizophrenia-stalking/static/css/main.d8808cb6.css.map",
-    "main.65542929.js.map": "/schizophrenia-stalking/static/js/main.65542929.js.map"
+    "main.cf939fd0.js.map": "/schizophrenia-stalking/static/js/main.cf939fd0.js.map"
   },
   "entrypoints": [
     "static/css/main.d8808cb6.css",
-    "static/js/main.65542929.js"
+    "static/js/main.cf939fd0.js"
   ]
 }
