@@ -4,14 +4,14 @@
   "private": false,
   "homepage": "https://cmirnow.github.io/schizophrenia-stalking",
   "dependencies": {
-    "caniuse-lite": "^1.0.30001444",
+    "caniuse-lite": "^1.0.30001651",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1",
     "react-transition-group": "^1.2.1",
     "three": "^0.121.0",
-    "vanta": "^0.5.22"
+    "vanta": "^0.5.24"
   },
   "scripts": {
     "predeploy": "npm run build",
@@ -31,6 +31,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^6.1.1"
   }
 }
