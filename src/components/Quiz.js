@@ -1,23 +1,23 @@
+// src/components/Quiz.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group';
-import Question from '../components/Question';
-import QuestionCount from '../components/QuestionCount';
-import AnswerOption from '../components/AnswerOption';
+import Question from './Question';
+import QuestionCount from './QuestionCount';
+import AnswerOption from './AnswerOption';
+import '../App.css'; // Уточняем путь к стилям
 
-function Quiz(props) {
-  function renderAnswerOptions(key) {
-    return (
-      <AnswerOption
-        key={key.content}
-        answerContent={key.content}
-        answerType={key.type}
-        answer={props.answer}
-        questionId={props.questionId}
-        onAnswerSelected={props.onAnswerSelected}
-      />
-    );
-  }
+const Quiz = (props) => {
+  const renderAnswerOptions = (key) => (
+    <AnswerOption
+      key={key.content}
+      answerContent={key.content}
+      answerType={key.type}
+      answer={props.answer}
+      questionId={props.questionId}
+      onAnswerSelected={props.onAnswerSelected}
+    />
+  );
 
   return (
     <CSSTransitionGroup
@@ -38,7 +38,7 @@ function Quiz(props) {
       </div>
     </CSSTransitionGroup>
   );
-}
+};
 
 Quiz.propTypes = {
   answer: PropTypes.string.isRequired,
@@ -46,7 +46,7 @@ Quiz.propTypes = {
   question: PropTypes.string.isRequired,
   questionId: PropTypes.number.isRequired,
   questionTotal: PropTypes.number.isRequired,
-  onAnswerSelected: PropTypes.func.isRequired
+  onAnswerSelected: PropTypes.func.isRequired,
 };
 
 export default Quiz;

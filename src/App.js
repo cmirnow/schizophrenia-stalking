@@ -1,120 +1,118 @@
-import React, { Component } from 'react';
-import { RingsAnimation } from "./components/RingsAnimation";
+// src/App.js
+import React, { useReducer, useEffect } from 'react';
+import { RingsAnimation } from './components/RingsAnimation';
 import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
-import Footer from './footer';
+import Footer from './Footer';
 import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const initialState = {
+  counter: 0,
+  questionId: 1,
+  question: '',
+  answerOptions: [],
+  answer: '',
+  answersCount: {},
+  result: '',
+};
 
-    this.state = {
-      counter: 0,
-      questionId: 1,
-      question: '',
-      answerOptions: [],
-      answer: '',
-      answersCount: {},
-      result: ''
-    };
-
-    this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+const quizReducer = (state, action) => {
+  switch (action.type) {
+    case 'INIT_QUESTIONS':
+      return {
+        ...state,
+        question: quizQuestions[0].question,
+        answerOptions: action.payload,
+      };
+    case 'SET_ANSWER':
+      return {
+        ...state,
+        answersCount: {
+          ...state.answersCount,
+          [action.payload]: (state.answersCount[action.payload] || 0) + 1,
+        },
+        answer: action.payload,
+      };
+    case 'NEXT_QUESTION':
+      return {
+        ...state,
+        counter: state.counter + 1,
+        questionId: state.questionId + 1,
+        question: quizQuestions[state.counter + 1].question,
+        answerOptions: quizQuestions[state.counter + 1].answers,
+        answer: '',
+      };
+    case 'SET_RESULT':
+      return { ...state, result: action.payload };
+    default:
+      return state;
   }
+};
 
-  componentDidMount() {
-    const shuffledAnswerOptions = quizQuestions.map(question =>
-      this.shuffleArray(question.answers)
+const App = () => {
+  const [state, dispatch] = useReducer(quizReducer, initialState);
+
+  useEffect(() => {
+    const shuffledAnswerOptions = quizQuestions.map((question) =>
+      shuffleArray(question.answers)
     );
-    this.setState({
-      question: quizQuestions[0].question,
-      answerOptions: shuffledAnswerOptions[0]
-    });
-  }
+    dispatch({ type: 'INIT_QUESTIONS', payload: shuffledAnswerOptions[0] });
+  }, []);
 
-  shuffleArray(array) {
-    return array;
-  }
+  const shuffleArray = (array) => {
+    return array; // Оставляем заглушку как в исходнике
+  };
 
-  handleAnswerSelected(event) {
-    this.setUserAnswer(event.currentTarget.value);
+  const handleAnswerSelected = (event) => {
+    const answer = event.currentTarget.value;
+    dispatch({ type: 'SET_ANSWER', payload: answer });
 
-    if (this.state.questionId < quizQuestions.length) {
-      setTimeout(() => this.setNextQuestion(), 300);
+    if (state.questionId < quizQuestions.length) {
+      setTimeout(() => dispatch({ type: 'NEXT_QUESTION' }), 300);
     } else {
-      setTimeout(() => this.setResults(this.getResults()), 300);
+      setTimeout(() => setResults(), 300);
     }
-  }
+  };
 
-  setUserAnswer(answer) {
-    this.setState((state, props) => ({
-      answersCount: {
-        ...state.answersCount,
-        [answer]: (state.answersCount[answer] || 0) + 1
-      },
-      answer: answer
-    }));
-  }
-
-  setNextQuestion() {
-    const counter = this.state.counter + 1;
-    const questionId = this.state.questionId + 1;
-
-    this.setState({
-      counter: counter,
-      questionId: questionId,
-      question: quizQuestions[counter].question,
-      answerOptions: quizQuestions[counter].answers,
-      answer: ''
-    });
-  }
-
-  getResults() {
-    const answersCount = this.state.answersCount;
+  const setResults = () => {
+    const answersCount = state.answersCount;
     const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map(key => answersCount[key]);
+    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
     const maxAnswerCount = Math.max.apply(null, answersCountValues);
-
-    return answersCountKeys.filter(key => answersCount[key] === maxAnswerCount);
-  }
-
-  setResults(result) {
-    if (result.length === 1) {
-      this.setState({ result: result[0] });
-    } else {
-      this.setState({ result: 'Тест не может определить приоритет' });
-    }
-  }
-
-  renderQuiz() {
-    return (
-      <Quiz
-        answer={this.state.answer}
-        answerOptions={this.state.answerOptions}
-        questionId={this.state.questionId}
-        question={this.state.question}
-        questionTotal={quizQuestions.length}
-        onAnswerSelected={this.handleAnswerSelected}
-      />
+    const result = answersCountKeys.filter(
+      (key) => answersCount[key] === maxAnswerCount
     );
-  }
 
-  renderResult() {
-    return <Result quizResult={this.state.result} />;
-  }
+    dispatch({
+      type: 'SET_RESULT',
+      payload:
+        result.length === 1
+          ? result[0]
+          : 'Тест не может определить приоритет',
+    });
+  };
 
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
+  return (
+    <div className="App">
+      <div className="App-header">
         <RingsAnimation />
-        </div>
-        {this.state.result ? this.renderResult() : this.renderQuiz()}
-        <Footer/>
       </div>
-    );
-  }
-}
+      {state.result ? (
+        <Result quizResult={state.result} />
+      ) : (
+        <Quiz
+          answer={state.answer}
+          answerOptions={state.answerOptions}
+          questionId={state.questionId}
+          question={state.question}
+          questionTotal={quizQuestions.length}
+          onAnswerSelected={handleAnswerSelected}
+        />
+      )}
+      <Footer />
+    </div>
+  );
+};
 
 export default App;

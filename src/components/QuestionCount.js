@@ -1,5 +1,7 @@
+// src/components/QuestionCount.js
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../App.css';
 
 function QuestionCount(props) {
   return (
@@ -11,7 +13,7 @@ function QuestionCount(props) {
 
 QuestionCount.propTypes = {
   counter: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
 };
 
 export default QuestionCount;
