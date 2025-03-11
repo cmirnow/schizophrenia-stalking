@@ -1,4 +1,3 @@
-// src/components/RingsAnimation.js
 import React, { useState, useEffect, useRef } from 'react';
 import RINGS from 'vanta/dist/vanta.rings.min';
 import * as THREE from 'three';

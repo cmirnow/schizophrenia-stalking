@@ -1,4 +1,3 @@
-// src/components/Question.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';

@@ -1,10 +1,9 @@
-// src/App.js
 import React, { useReducer, useEffect } from 'react';
 import { RingsAnimation } from './components/RingsAnimation';
 import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
-import Footer from './Footer';
+import Footer from './components/Footer';
 import './App.css';
 
 const initialState = {
@@ -61,7 +60,7 @@ const App = () => {
   }, []);
 
   const shuffleArray = (array) => {
-    return array; // Оставляем заглушку как в исходнике
+    return array;
   };
 
   const handleAnswerSelected = (event) => {
