@@ -1,23 +1,22 @@
 // src/components/Result.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import '../App.css';
 
 const Result = (props) => (
-  <CSSTransitionGroup
-    className="container result"
-    component="div"
-    transitionName="fade"
-    transitionEnterTimeout={800}
-    transitionLeaveTimeout={500}
-    transitionAppear
-    transitionAppearTimeout={500}
-  >
-    <div>
-      <strong>Результат.</strong> {props.quizResult}.
-    </div>
-  </CSSTransitionGroup>
+  <TransitionGroup className="container result" component="div">
+    <CSSTransition
+      key="result"
+      timeout={{ enter: 800, exit: 500 }}
+      classNames="fade"
+      appear
+    >
+      <div style={{ position: 'absolute', width: '100%', top: 0, left: 0 }}>
+        <strong>Результат.</strong> {props.quizResult}.
+      </div>
+    </CSSTransition>
+  </TransitionGroup>
 );
 
 Result.propTypes = {

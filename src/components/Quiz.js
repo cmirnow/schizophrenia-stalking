@@ -1,11 +1,11 @@
 // src/components/Quiz.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Question from './Question';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
-import '../App.css'; // Уточняем путь к стилям
+import '../App.css';
 
 const Quiz = (props) => {
   const renderAnswerOptions = (key) => (
@@ -20,23 +20,22 @@ const Quiz = (props) => {
   );
 
   return (
-    <CSSTransitionGroup
-      className="container"
-      component="div"
-      transitionName="fade"
-      transitionEnterTimeout={800}
-      transitionLeaveTimeout={500}
-      transitionAppear
-      transitionAppearTimeout={500}
-    >
-      <div key={props.questionId}>
-        <QuestionCount counter={props.questionId} total={props.questionTotal} />
-        <Question content={props.question} />
-        <ul className="answerOptions">
-          {props.answerOptions.map(renderAnswerOptions)}
-        </ul>
-      </div>
-    </CSSTransitionGroup>
+    <TransitionGroup className="container" component="div">
+      <CSSTransition
+        key={props.questionId}
+        timeout={{ enter: 800, exit: 500 }}
+        classNames="fade"
+        appear
+      >
+        <div style={{ position: 'absolute', width: '100%', top: 0, left: 0 }}>
+          <QuestionCount counter={props.questionId} total={props.questionTotal} />
+          <Question content={props.question} />
+          <ul className="answerOptions">
+            {props.answerOptions.map(renderAnswerOptions)}
+          </ul>
+        </div>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
 
